@@ -6,6 +6,53 @@ var getCurrentDate = function() {
 
 }
 
+window.addEventListener("load", function() {
+   var container = document.getElementById("timeBlockContainer");
+    var timesAvailable = [9, 10, 11, 12, 13, 14, 15, 16, 17];
+
+    for (i = 0; i < timesAvailable.length; i+=1) {
+        container.appendChild(buildTimeBlock(timesAvailable[i]));
+    }
+})
+
+
+
+var buildTimeBlock = function(timeSlot) {
+    var container = document.getElementById("timeBlockContainer")
+    var nr = document.createElement("div");
+    nr.classList.add("row");
+    var col1 = document.createElement("div");
+    col1.classList.add("col-1");
+    var col2 = document.createElement('div');
+    col2.classList.add("col-10")
+    if (setBlockColors(timeSlot) == "past") {
+        col2.classList.add("past");
+    } else if (setBlockColors(timeSlot) == "present") {
+        col2.classList.add("present");
+    } else {
+        col2.classList.add("future");
+    };
+    var col3 = document.createElement("div");
+    col3.classList.add("col-1");
+    var nBtn = document.createElement("button");
+    nBtn.id = "btn" + timeSlot;
+    nBtn.classList.add("add")
+    col3.appendChild(nBtn);
+    var nTxt = document.createElement("input")
+    nTxt.type="text";
+    nTxt.id="txt" + timeSlot;
+    //TODO: handle adding existing data later
+    col2.appendChild(nTxt);
+    nBtn.textContent="save"
+    var timeText = document.createTextNode(formatTimeText(timeSlot));
+
+    col1.appendChild(timeText);
+    nr.appendChild(col1);
+    nr.appendChild(col2);
+    nr.appendChild(col3);
+    return nr;
+};
+
 
 
 // function for the color coding of the timeblocks
@@ -13,31 +60,36 @@ var getCurrentDate = function() {
 // if its before the current hour it is the past css style
 // if its after the current hour make it future css style
 // anything else make white
-var getTimeBlocks = function() {
-    var hour9Block = document.getElementById("hour9Block");
-    var hour10Block = document.getElementById("hour10Block");
-    var hour11Block = document.getElementById("hour11Block");
-    var hour12Block = document.getElementById("hour12Block");
-    var hour1Block = document.getElementById("hour1Block");
-    var hour2Block = document.getElementById("hour2Block");
-    var hour3Block = document.getElementById("hour3Block");
-    var hour4Block = document.getElementById("hour4Block");
-    var hour5Block = document.getElementById("hour5Block");
 
-
-}
 
 var setBlockColors = function(blockTime) {
-    var currentHour = newDate().toLocalString('en-us', {hour: 'numeric', hour12: true});
+    var currentHour = new Date().toLocaleString('en-us', {hour: 'numeric', hour12: false});
     if (blockTime < currentHour) {
         return "past"
     } else if (blockTime == currentHour) {
         return "present"
     } else {
         return "future"
-    }
+    };
 }
 
+var formatTimeText = function(timeText) {
+    if (timeText == 13) {
+        return "1 PM"
+    } else if (timeText == 14) {
+        return "2 PM"
+    } else if (timeText == 15) {
+        return "3 PM"
+    } else if (timeText == 16) {
+        return "4 PM"
+    } else if (timeText == 17) {
+        return "5 PM"
+    } else if (timeText = 12) {
+        return "noon"
+    } else {
+        timeText + "AM"
+    }
+};
 // edit task function
 
 
