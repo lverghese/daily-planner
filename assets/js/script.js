@@ -53,7 +53,9 @@ var buildTimeBlock = function(timeSlot) {
     //TODO: handle adding existing data 
     currentEventData = getEvent(timeSlot);
     if (currentEventData != null) {
-        nTxt.value = currentEventData;
+        if (currentEventData != 0) {
+            nTxt.value = currentEventData.eventTitle;
+        }
     } 
     col2.appendChild(nTxt);
     var timeText = document.createTextNode(formatTimeText(timeSlot));
@@ -111,7 +113,22 @@ var saveEvent = function(eventElement) {
         newArray.push(eventElement)
         localStorage.setItem("eventData", JSON.stringify(newArray));
     } else {
+        //array already exists in storage check to see if this time slot already has data
         var currentEventData = JSON.parse(localStorage.getItem("eventData"))
+        var dataExists = false
+        var dataAtIndex;
+        for (i = 0; i < currentEventData.length; i++) {
+            if (currentEventData[i].eventTime == eventElement.eventTime) {
+                dataExists = true;
+                dataAtIndex = i;
+            };
+        }
+        if (dataExists) {
+            var existingData = currentEventData(dataAtIndex);
+            existingData.eventTitle = eventElement.eventTitle;
+        } else {
+            currentEventData.push(eventElement);
+        }
         currentEventDate.push(eventElement);
         localStorage.setItem(setItem("eventData", JSON.stringify(currentEventData)));
     }
@@ -121,15 +138,13 @@ var saveEvent = function(eventElement) {
 var getEvent = function(timeSlot) {
     var eventData = JSON.parse(localStorage.getItem("eventData"));
     if (eventData == null) {
-        return 0;
+        return null
     } else {
-        for (x = 0; x < eventData.length; x +=1) {
+        for (x = 0; x < eventData.length; x++) {
             if (eventData[x].eventTime == timeSlot) {
-                return eventData[x].eventTitle
-            } else {
-                return null;
-            }
-     }
+                return eventData[x]
+            }  
+        }
     }
 }
 
