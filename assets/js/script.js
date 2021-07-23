@@ -37,13 +37,21 @@ var buildTimeBlock = function(timeSlot) {
     var nBtn = document.createElement("button");
     nBtn.id = "btn" + timeSlot;
     nBtn.classList.add("add")
+    nBtn.textContent="save"
+    nBtn.addEventListener("click", function() {
+        var eventData = {
+            eventTime: timeSlot,
+            eventTitle: nTxt.value
+        }
+
+    })
     col3.appendChild(nBtn);
     var nTxt = document.createElement("input")
     nTxt.type="text";
     nTxt.id="txt" + timeSlot;
     //TODO: handle adding existing data later
     col2.appendChild(nTxt);
-    nBtn.textContent="save"
+
     var timeText = document.createTextNode(formatTimeText(timeSlot));
 
     col1.appendChild(timeText);
@@ -84,14 +92,26 @@ var formatTimeText = function(timeText) {
         return "4 PM"
     } else if (timeText == 17) {
         return "5 PM"
-    } else if (timeText = 12) {
+    } else if (timeText == 12) {
         return "noon"
     } else {
-        timeText + "AM"
+        return timeText + "AM"
     }
 };
 // edit task function
 
 
 // save task function
+var saveEvent = function(eventElement) {
+    if(localStorage.getItem("eventData") == null) {
+        var newArray = []
+        newArray.push(eventElement)
+        localStorage.setItem("eventData", JSON.stringify(newArray));
+    } else {
+        var currentEventData = JSON.parse(localStorage.getItem("eventData"))
+        currentEventDate.push(eventElement);
+        localStorage.setItem(setItem("eventData", JSON.stringify(currentEventData)));
+    }
+}
+
 // local storage needs to save events in scheduler on screen after refresh
