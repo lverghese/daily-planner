@@ -39,21 +39,24 @@ var buildTimeBlock = function(timeSlot) {
     nBtn.classList.add("add")
     nBtn.textContent="save"
     nBtn.addEventListener("click", function() {
-        var eventData = {
+        var eventElement = {
             eventTime: timeSlot,
             eventTitle: nTxt.value
-        }
+        };
+        saveEvent(eventElement);
 
     })
     col3.appendChild(nBtn);
     var nTxt = document.createElement("input")
     nTxt.type="text";
     nTxt.id="txt" + timeSlot;
-    //TODO: handle adding existing data later
+    //TODO: handle adding existing data 
+    currentEventData = getEvent(timeSlot);
+    if (currentEventData != null) {
+        nTxt.value = currentEventData;
+    } 
     col2.appendChild(nTxt);
-
     var timeText = document.createTextNode(formatTimeText(timeSlot));
-
     col1.appendChild(timeText);
     nr.appendChild(col1);
     nr.appendChild(col2);
@@ -111,6 +114,22 @@ var saveEvent = function(eventElement) {
         var currentEventData = JSON.parse(localStorage.getItem("eventData"))
         currentEventDate.push(eventElement);
         localStorage.setItem(setItem("eventData", JSON.stringify(currentEventData)));
+    }
+}
+
+//get existing events from localStorage
+var getEvent = function(timeSlot) {
+    var eventData = JSON.parse(localStorage.getItem("eventData"));
+    if (eventData == null) {
+        return 0;
+    } else {
+        for (x = 0; x < eventData.length; x +=1) {
+            if (eventData[x].eventTime == timeSlot) {
+                return eventData[x].eventTitle
+            } else {
+                return null;
+            }
+     }
     }
 }
 
