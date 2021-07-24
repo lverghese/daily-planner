@@ -1,10 +1,15 @@
 // Need a function with the current date at the top
+var currentDate = document.getElementById("currentDay");
+
 var getCurrentDate = function(){
-    var cDay = currentDate.getDate();
-    var cMonth = currentDate.getMonth();
-    var cYear = currentDate.getFullYear();
-    console.log(cDay + " " + cMonth + " " + cYear);
+    var currentDay = moment().format("dddd, MMMM Do YYYY");
+    currentDate.innerHTML = currentDay;
+
 };
+
+getCurrentDate();
+
+
  
 window.addEventListener("load", function(){
     var container = document.getElementById("timeBlockContainer");
@@ -143,6 +148,8 @@ var getEvent = function(timeSlot){
  
  
 }
+
+
  
 // local storage needs to save events in scheduler on screen after refresh
  
