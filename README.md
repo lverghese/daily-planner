@@ -15,8 +15,8 @@ This daily planner's purpose is to show a dynamically created webpage that shows
 
 
 ## Contribution
-HTML and CSS initialized previously.
-Javascripted initialized by yours truly.
+* HTML and CSS initialized previously.
+* Javascripted initialized by yours truly.
 
 
 ## Preview
