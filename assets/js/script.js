@@ -7,7 +7,7 @@ var getCurrentDate = function(){
 
 };
 
-getCurrentDate();
+
 
 
  
@@ -17,6 +17,8 @@ window.addEventListener("load", function(){
     for (i = 0; i < timesAvailable.length; i++) {
         container.appendChild(buildTimeBlock(timesAvailable[i]));
     }
+
+    getCurrentDate();
 });
  
  
@@ -46,7 +48,7 @@ var buildTimeBlock = function(timeSlot){
     col3.classList.add("col-1");
     var nBtn = document.createElement("button");
     nBtn.id = "btn" + timeSlot;
-    nBtn.classList.add("btn");
+    nBtn.classList.add("saveBtn");
     nBtn.textContent = "Save";
     nBtn.addEventListener("click", function(){
         var eventElement = {
@@ -57,6 +59,7 @@ var buildTimeBlock = function(timeSlot){
     });
     col3.appendChild(nBtn);
     var nTxt = document.createElement("input");
+    
     nTxt.type="text";
     nTxt.id="txt" + timeSlot;
     currentEventData = getEvent(timeSlot);
@@ -96,13 +99,14 @@ var formatTimeText = function(timeText){
     } else if (timeText == 17) {
         return "5 PM"
     } else if (timeText == 12) {
-        return "noon"
+        return "12 PM"
     } else {
         return timeText + "AM"
     }
+    
 };
  
-// edit task function
+
  
  
 // save task function
