@@ -33,10 +33,13 @@ window.addEventListener("load", function(){
 var buildTimeBlock = function(timeSlot){
     var nr = document.createElement('div');
     nr.classList.add("row");
+    nr.classList.add("border-top");
     var col1 = document.createElement('div');
     col1.classList.add("col-1");
+    col1.style.paddingTop="20px";
     var col2 = document.createElement('div');
     col2.classList.add("col-10");
+    col2.classList.add("textarea")
     if (setBlockColors(timeSlot) == "past"){
         col2.classList.add("past");
     } else if (setBlockColors(timeSlot) == "present") {
@@ -46,9 +49,13 @@ var buildTimeBlock = function(timeSlot){
     }
     var col3 = document.createElement('div');
     col3.classList.add("col-1");
+    col3.style.paddingTop="20px";
     var nBtn = document.createElement("button");
     nBtn.id = "btn" + timeSlot;
-    nBtn.classList.add("saveBtn");
+    nBtn.classList.add("btn");
+    nBtn.classList.add("btn-primary");
+    nBtn.classList.add("btn-block");
+    nBtn.classList.add("text-center")
     nBtn.textContent = "Save";
     nBtn.addEventListener("click", function(){
         var eventElement = {
@@ -59,7 +66,7 @@ var buildTimeBlock = function(timeSlot){
     });
     col3.appendChild(nBtn);
     var nTxt = document.createElement("input");
-    
+    nTxt.classList.add("textarea")
     nTxt.type="text";
     nTxt.id="txt" + timeSlot;
     currentEventData = getEvent(timeSlot);
@@ -89,17 +96,17 @@ var setBlockColors = function(blockTime){
  
 var formatTimeText = function(timeText){
     if (timeText == 13) {
-        return "1 PM"
+        return "1PM"
     } else if (timeText == 14) {
-        return "2 PM"
+        return "2PM"
     } else if (timeText == 15) {
-        return "3 PM"
+        return "3PM"
     } else if (timeText == 16) {
-        return "4 PM"
+        return "4PM"
     } else if (timeText == 17) {
-        return "5 PM"
+        return "5PM"
     } else if (timeText == 12) {
-        return "12 PM"
+        return "12PM"
     } else {
         return timeText + "AM"
     }
