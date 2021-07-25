@@ -11,7 +11,7 @@ This daily planner's purpose is to show a dynamically created webpage that shows
 
 
 ## Website
-
+ https://lverghese.github.io/daily-planner/
 
 
 ## Contribution
@@ -20,3 +20,4 @@ Javascripted initialized by yours truly.
 
 
 ## Preview
+![image](https://user-images.githubusercontent.com/85531188/126916891-bb48f789-72d8-421a-9a32-eb8ac2eae4a6.png)
